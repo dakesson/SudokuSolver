@@ -28,7 +28,7 @@ SudokuSolver::SudokuSolver(Puzzle *puzzle)
 
 		for (int j = nextValue; j <= 9; j++) {
 			puzzle->setValue(j, pos);
-			if (puzzle->constraintsForCellOk(pos))
+			if (puzzle->constraintsForCellOK(pos))
 			{
 				level++;
 				break;

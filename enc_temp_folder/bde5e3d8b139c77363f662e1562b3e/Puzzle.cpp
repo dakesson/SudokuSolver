@@ -47,9 +47,10 @@ std::vector<int> Puzzle::getColValues(int col)
 	return colValues;
 }
 
-std::vector<int> Puzzle::getBoxValues(int number)
+std::vector<int> Puzzle::getQuadrantValues(int number)
 {
-	std::vector<int> BoxValues;
+	//Counting number row wise from top left (0-8)
+	std::vector<int> quadrantValues;
 	
 	int startRow = floor(number / 3) * 3;
 	for (int row = startRow; row < startRow + 3; row++)
@@ -59,11 +60,11 @@ std::vector<int> Puzzle::getBoxValues(int number)
 		{
 			int value = getValueFor(Position(row, col));
 			if (value)
-				BoxValues.push_back(value);
+				quadrantValues.push_back(value);
 		}
 	}
 
-	return BoxValues;
+	return quadrantValues;
 }
 
 bool Puzzle::allConstraintsOK()
@@ -76,15 +77,15 @@ bool Puzzle::allConstraintsOK()
 		if (utility::containsDuplicates(getColValues(i)))
 			return false;
 
-		std::vector<int> t = getBoxValues(i);
-		if (utility::containsDuplicates(getBoxValues(i)))
+		std::vector<int> t = getQuadrantValues(i);
+		if (utility::containsDuplicates(getQuadrantValues(i)))
 			return false;
 	}
 	
 	return true;
 }
 
-bool Puzzle::constraintsForCellOK(Position pos)
+bool Puzzle::constraintsForCellOk(Position pos)
 {
 	if (utility::containsDuplicates(getRowValues(pos.getRow())))
 		return false;
@@ -92,7 +93,7 @@ bool Puzzle::constraintsForCellOK(Position pos)
 	if (utility::containsDuplicates(getColValues(pos.getCol())))
 		return false;
 
-	if (utility::containsDuplicates(getBoxValues(pos.getBox())))
+	if (utility::containsDuplicates(getQuadrantValues(pos.getQuadrant())))
 		return false;
 
 	return true;

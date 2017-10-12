@@ -5,7 +5,7 @@ SudokuWindow::SudokuWindow()
 	layout = new QGridLayout;
 
 	drawCellLabels();
-	drawBoxBorders();
+	drawQuadrantBorders();
 
 	QWidget * central = new QWidget();
 	setCentralWidget(central);
@@ -29,7 +29,7 @@ void SudokuWindow::drawCellLabels()
 	}
 }
 
-void SudokuWindow::drawBoxBorders()
+void SudokuWindow::drawQuadrantBorders()
 {
 	for (int row = 0; row < 3; ++row) {
 		for (int col = 0; col < 3; col++) {

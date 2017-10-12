@@ -13,7 +13,7 @@ class SudokuWindow : public QMainWindow
 {
 public:
 	SudokuWindow();
-	void drawBoxBorders();
+	void drawQuadrantBorders();
 	void drawCellLabels();
 	void drawPuzzle(Puzzle *puzzle);
 private:

@@ -26,7 +26,7 @@ int Position::getStoragePos()
 	return this->storagePos;
 }
 
-int Position::getBox()
+int Position::getQuadrant()
 {
 	return floor(getRow() / 3) * 3 + floor(getCol() / 3);
 }

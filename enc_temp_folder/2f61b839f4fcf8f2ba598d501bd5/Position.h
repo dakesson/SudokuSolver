@@ -16,6 +16,6 @@ public:
 	int getRow();
 	int getCol();
 	int getStoragePos();
-	int getBox();
+	int getQuadrant();
 };
 

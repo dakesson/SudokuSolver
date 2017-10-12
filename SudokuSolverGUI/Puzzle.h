@@ -10,7 +10,7 @@ private:
 	
 	std::vector<int> getRowValues(int row);
 	std::vector<int> getColValues(int col);
-	std::vector<int> getQuadrantValues(int number);
+	std::vector<int> getBoxValues(int number);
 public:
 	Puzzle();
 	~Puzzle();
@@ -18,7 +18,7 @@ public:
 	int getValueFor(Position pos);
 
 	bool allConstraintsOK();
-	bool constraintsForCellOk(Position pos);
+	bool constraintsForCellOK(Position pos);
 	std::vector<Position> getAvailablePositions();
 
 	void runUnitTests();

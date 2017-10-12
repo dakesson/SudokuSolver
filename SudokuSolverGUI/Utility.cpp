@@ -17,4 +17,16 @@ namespace utility
 
 		return false;
 	}
+
+	int countUniqueValues(std::vector<int> v)
+	{
+		std::unordered_map<int, bool> m;
+
+		for (std::vector<int>::iterator it = v.begin(); it != v.end(); ++it) {
+			int i = *it;
+			m[i] = true;
+		}
+
+		return m.size();
+	}
 }

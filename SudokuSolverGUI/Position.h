@@ -7,15 +7,13 @@ class Position
 {
 private:
 	int storagePos;
-
 	Position();
 public:
 	Position(int row, int col);
-	Position(int dataPos);
-	~Position();
+	Position(int storagePos);
 	int getRow();
 	int getCol();
 	int getStoragePos();
 	int getBox();
+	~Position();
 };
-

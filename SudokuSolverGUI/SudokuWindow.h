@@ -16,6 +16,7 @@ public:
 	void drawBoxBorders();
 	void drawCellLabels();
 	void drawPuzzle(Puzzle *puzzle);
+	~SudokuWindow();
 private:
 	QGridLayout *layout;
 	QVector<QLabel*> cellLabels;

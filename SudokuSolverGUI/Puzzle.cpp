@@ -7,10 +7,6 @@ Puzzle::Puzzle()
 	this->storage = std::vector<int>(NUM_ROW * NUM_COL);
 }
 
-Puzzle::~Puzzle()
-{
-}
-
 void Puzzle::setValue(int value, Position pos)
 {
 	storage[pos.getStoragePos()] = value;
@@ -42,8 +38,6 @@ std::vector<int> Puzzle::getColValues(int col)
 		if (value)
 			colValues.push_back(value);
 	}
-		
-
 	return colValues;
 }
 
@@ -62,7 +56,6 @@ std::vector<int> Puzzle::getBoxValues(int number)
 				BoxValues.push_back(value);
 		}
 	}
-
 	return BoxValues;
 }
 
@@ -79,8 +72,7 @@ bool Puzzle::allConstraintsOK()
 		std::vector<int> t = getBoxValues(i);
 		if (utility::containsDuplicates(getBoxValues(i)))
 			return false;
-	}
-	
+	}	
 	return true;
 }
 
@@ -103,9 +95,25 @@ std::vector<Position> Puzzle::getAvailablePositions()
 	std::vector<Position> result;
 	for (int i = 0; i < this->storage.size(); i++) {
 		if (!storage[i])
-			result.push_back(Position(i));
+			result.push_back(Position(i));		
 	}
 	return result;
+}
+
+int Puzzle::computeConstraintsFor(Position pos)
+{
+	std::vector<int> constraints;
+
+	std::vector<int> rowValues = getRowValues(pos.getRow());
+	constraints.insert(constraints.end(), rowValues.begin(), rowValues.end());
+
+	std::vector<int> colValues = getColValues(pos.getCol());
+	constraints.insert(constraints.end(), colValues.begin(), colValues.end());
+
+	std::vector<int> boxValues = getBoxValues(pos.getBox());
+	constraints.insert(constraints.end(), boxValues.begin(), boxValues.end());
+
+	return utility::countUniqueValues(constraints);
 }
 
 void Puzzle::runUnitTests() 
@@ -123,3 +131,6 @@ void Puzzle::runUnitTests()
 
 }
 
+Puzzle::~Puzzle()
+{
+}

@@ -3,6 +3,8 @@
 #include <Windows.h>
 #include <iostream>
 #include <sstream>
+#include <ctime>
+#include <cstdio>
 
 #define DBOUT( s )            \
 {                             \
@@ -14,8 +16,13 @@
 class SudokuSolver
 {
 private:
+	clock_t sTimer;
+	clock_t eTimer;
 	Puzzle *puzzle;
 public:
 	SudokuSolver(Puzzle *puzzle);
+	void deepthFirstSearch(Puzzle * puzzle);
+	void startTimer();
+	void endTimer();	
 	~SudokuSolver();
 };

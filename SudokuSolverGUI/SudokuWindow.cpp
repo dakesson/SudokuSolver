@@ -24,7 +24,7 @@ void SudokuWindow::drawCellLabels()
 			layout->addWidget(cellLabel, row, col);
 			cellLabel->setStyleSheet("border: 1px solid grey");
 			cellLabel->setAlignment(Qt::AlignCenter);
-			cellLabels.append(cellLabel);
+cellLabels.append(cellLabel);
 		}
 	}
 }
@@ -54,5 +54,9 @@ void SudokuWindow::drawPuzzle(Puzzle *puzzle)
 			}
 		}
 	}
+}
+
+SudokuWindow::~SudokuWindow()
+{
 }
 

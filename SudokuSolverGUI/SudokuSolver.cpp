@@ -1,16 +1,18 @@
 #include "SudokuSolver.h"
 #include <algorithm>
-#include <ctime>
-#include <cstdio>
 
 SudokuSolver::SudokuSolver(Puzzle *puzzle)
 {
-	clock_t time_a = clock();
-
 	this->puzzle = puzzle;
 
+	startTimer();
+	deepthFirstSearch(puzzle);
+	endTimer();	
+}
+
+void SudokuSolver::deepthFirstSearch(Puzzle * puzzle)
+{
 	std::vector<Position> positions = puzzle->getAvailablePositions();
-	//for (int i = 0; i < positions.size(); i++) {
 
 	int level = 0;
 	while (level < positions.size())
@@ -26,27 +28,28 @@ SudokuSolver::SudokuSolver(Puzzle *puzzle)
 			continue;
 		}
 
-		for (int j = nextValue; j <= 9; j++) {
-			puzzle->setValue(j, pos);
+		for (int testValue = nextValue; testValue < 10; testValue++) {
+			puzzle->setValue(testValue, pos);
 			if (puzzle->constraintsForCellOK(pos))
 			{
 				level++;
 				break;
 			}
-			else if (j == 9) 
-			{
-				puzzle->setValue(0, pos);
-				level--;
-				break;
-			}				
 		}
-	}
-	
-	clock_t time_b = clock();
-	unsigned int total_time_ticks = (unsigned int)(time_b - time_a);
-	
+	} 
 }
 
+
+void SudokuSolver::startTimer()
+{
+	this->sTimer = clock();
+}
+
+void SudokuSolver::endTimer()
+{
+	this->eTimer = clock();
+	unsigned int total_time_ticks = (unsigned int)(sTimer - eTimer);
+}
 
 SudokuSolver::~SudokuSolver()
 {

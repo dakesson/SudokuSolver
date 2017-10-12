@@ -13,13 +13,12 @@ private:
 	std::vector<int> getBoxValues(int number);
 public:
 	Puzzle();
-	~Puzzle();
 	void setValue(int value, Position pos);
 	int getValueFor(Position pos);
-
 	bool allConstraintsOK();
 	bool constraintsForCellOK(Position pos);
 	std::vector<Position> getAvailablePositions();
-
+	int Puzzle::computeConstraintsFor(Position pos);
 	void runUnitTests();
+	~Puzzle();
 };

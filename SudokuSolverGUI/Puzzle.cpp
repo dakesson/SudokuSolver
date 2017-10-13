@@ -12,6 +12,11 @@ void Puzzle::setValue(int value, Position pos)
 	storage[pos.getStoragePos()] = value;
 }
 
+void Puzzle::removeValue(Position pos)
+{
+	setValue(NULL, pos);
+}
+
 int Puzzle::getValueFor(Position pos)
 {
 	return storage[pos.getStoragePos()];
@@ -31,7 +36,7 @@ std::vector<int>Puzzle::getRowValues(int row)
 
 std::vector<int> Puzzle::getColValues(int col)
 {
-	std::vector<int> colValues; // INHERIT VECTOR AND CUSTOM FUNC FOR NULL ADDING?
+	std::vector<int> colValues;
 	for (int row = 0; row < NUM_ROW; row++)
 	{
 		int value = getValueFor(Position(row, col));
@@ -90,12 +95,22 @@ bool Puzzle::constraintsForCellOK(Position pos)
 	return true;
 }
 
-std::vector<Position> Puzzle::getAvailablePositions()
+std::vector<Position> Puzzle::getUnFilledPositions()
 {
 	std::vector<Position> result;
 	for (int i = 0; i < this->storage.size(); i++) {
 		if (!storage[i])
 			result.push_back(Position(i));		
+	}
+	return result;
+}
+
+std::vector<Position> Puzzle::getFilledPositions()
+{
+	std::vector<Position> result;
+	for (int i = 0; i < this->storage.size(); i++) {
+		if (storage[i])
+			result.push_back(Position(i));
 	}
 	return result;
 }
@@ -116,19 +131,9 @@ int Puzzle::computeConstraintsFor(Position pos)
 	return utility::countUniqueValues(constraints);
 }
 
-void Puzzle::runUnitTests() 
-{	
-	/*
-	bool test1 = (squareNumberForCell(0, 0) == 0);
-	bool test2 = (squareNumberForCell(8, 0) == 6);
-	bool test3 = (squareNumberForCell(0, 7) == 2);
-	bool test4 = (squareNumberForCell(7, 7) == 8);
-
-	std::vector<int> vtest1 = getQuadrantValues(2);
-	std::vector<int> vtest2 = getQuadrantValues(3);
-	std::vector<int> vtest3 = getQuadrantValues(8);
-	*/
-
+void Puzzle::clearValues()
+{
+	this->storage = std::vector<int>(NUM_ROW * NUM_COL);
 }
 
 Puzzle::~Puzzle()

@@ -6,6 +6,10 @@
 #include <ctime>
 #include <cstdio>
 
+#define NO_SOLUTION			0;
+#define UNIQUE_SOLUTION		1;
+#define MULTIPLE_SOLUTIONS_FOUND	2;
+
 #define DBOUT( s )            \
 {                             \
    std::wostringstream os_;    \
@@ -19,10 +23,14 @@ private:
 	clock_t sTimer;
 	clock_t eTimer;
 	Puzzle *puzzle;
-public:
-	SudokuSolver(Puzzle *puzzle);
-	void deepthFirstSearch(Puzzle * puzzle);
+	bool findAllSolutions;
+	
+	void deepthFirstSearch();
 	void startTimer();
-	void endTimer();	
+	void endTimer();
+public:
+	SudokuSolver(Puzzle *puzzle, bool findAllSolutions);
+	int numberOfBacktrack;
+	std::vector<Puzzle> solutions;
 	~SudokuSolver();
 };

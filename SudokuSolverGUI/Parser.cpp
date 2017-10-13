@@ -6,7 +6,7 @@
 
 Parser::Parser()
 {
-	puzzle = new Puzzle();
+	this->puzzle = new Puzzle();
 }
 
 Puzzle* Parser::parseFile(std::string filename)

@@ -6,21 +6,29 @@
 #include <QLabel>
 #include <QGridLayout>
 #include <QApplication>
+#include <QMenuBar>
+#include <QtWidgets>
 
 const int cellSize = 40;
 
 class SudokuWindow : public QMainWindow
 {
-public:
-	SudokuWindow();
-	void drawBoxBorders();
-	void drawCellLabels();
-	void drawPuzzle(Puzzle *puzzle);
-	~SudokuWindow();
 private:
+	Puzzle *puzzle;
+	QMenu *fileMenu;
 	QGridLayout *layout;
 	QVector<QLabel*> cellLabels;
 	QLabel* cellLabel(int row, int col) const {
 		return cellLabels[row * NUM_COL + col];
 	}
+	void drawBoxBorders();
+	void drawCellLabels();
+public:
+	SudokuWindow();
+	void createMenu();
+	void drawPuzzle(Puzzle *puzzle);
+	void open();
+	void solve();
+	void generate();
+	~SudokuWindow();
 };

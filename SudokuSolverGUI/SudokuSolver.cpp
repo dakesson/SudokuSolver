@@ -44,7 +44,6 @@ void SudokuSolver::deepthFirstSearch()
 					level++;
 					break;
 				}
-
 			}
 		}
 	} 
@@ -59,6 +58,25 @@ void SudokuSolver::endTimer()
 {
 	this->eTimer = clock();
 	unsigned int total_time_ticks = (unsigned int)(sTimer - eTimer);
+}
+
+std::string SudokuSolver::difficultyOfPuzzle()
+{
+	if (numberOfBacktrack == 0) {
+		return "No puzzle solved";
+	}
+	else if (numberOfBacktrack < 1000) {
+		return "Puzzle was easy!";
+	}
+	else if (numberOfBacktrack < 15000) {
+		return "Puzzle was medium";
+	}
+	else if (numberOfBacktrack < 35000) {
+		return "Puzzle was hard";
+	}
+	else if (numberOfBacktrack >= 35000) {
+		return "Puzzle was level SAMURAI!";
+	}
 }
 
 SudokuSolver::~SudokuSolver()

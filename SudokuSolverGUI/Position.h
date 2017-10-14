@@ -9,8 +9,8 @@ private:
 	int storagePos;
 	Position();
 public:
-	Position(int row, int col);
-	Position(int storagePos);
+	explicit Position(int row, int col);
+	explicit Position(int storagePos);
 	int getRow();
 	int getCol();
 	int getStoragePos();

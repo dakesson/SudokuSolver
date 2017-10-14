@@ -4,7 +4,7 @@
 
 Sudoku::Sudoku()
 {
-	storage = std::vector<int>(NUM_ROW * NUM_COL);
+	this->storage = std::vector<int>(NUM_ROW * NUM_COL);
 }
 
 void Sudoku::setValue(int value, Position pos)
@@ -74,7 +74,6 @@ bool Sudoku::allConstraintsOK()
 		if (utility::containsDuplicates(getColValues(i)))
 			return false;
 
-		std::vector<int> t = getBoxValues(i);
 		if (utility::containsDuplicates(getBoxValues(i)))
 			return false;
 	}	
@@ -98,7 +97,7 @@ bool Sudoku::constraintsForCellOK(Position pos)
 std::vector<Position> Sudoku::getUnFilledPositions()
 {
 	std::vector<Position> result;
-	for (int i = 0; i < this->storage.size(); i++) {
+	for (int i = 0; i < storage.size(); i++) {
 		if (!storage[i])
 			result.push_back(Position(i));		
 	}
@@ -108,7 +107,7 @@ std::vector<Position> Sudoku::getUnFilledPositions()
 std::vector<Position> Sudoku::getFilledPositions()
 {
 	std::vector<Position> result;
-	for (int i = 0; i < this->storage.size(); i++) {
+	for (int i = 0; i < storage.size(); i++) {
 		if (storage[i])
 			result.push_back(Position(i));
 	}
@@ -133,7 +132,7 @@ int Sudoku::computeConstraintsFor(Position pos)
 
 void Sudoku::clearValues()
 {
-	this->storage = std::vector<int>(NUM_ROW * NUM_COL);
+	storage = std::vector<int>(NUM_ROW * NUM_COL);
 }
 
 Sudoku::~Sudoku()

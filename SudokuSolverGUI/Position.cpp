@@ -13,17 +13,17 @@ Position::Position(int storagePos)
 
 int Position::getRow()
 {
-	return this->storagePos / NUM_ROW;
+	return (storagePos / NUM_ROW);
 }
 
 int Position::getCol()
 {
-	return this->storagePos % NUM_ROW;
+	return (storagePos % NUM_ROW);
 }
 
 int Position::getStoragePos()
 {
-	return this->storagePos;
+	return storagePos;
 }
 
 int Position::getBox()

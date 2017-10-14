@@ -6,7 +6,7 @@ class SudokuGenerator
 {
 private:
 	void addRandomInitialValuesTo(Sudoku *sudoku);
-	void fillAllCellsWithValues(Sudoku *sudoku);
+	void fillSudoku(Sudoku *sudoku);
 	void removeRandomValuesUntilOneSolution(Sudoku *sudoku);
 public:
 	SudokuGenerator();

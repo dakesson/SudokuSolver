@@ -1,7 +1,7 @@
+#pragma once
+
 #include <vector>
 #include "Position.h"
-
-#pragma once
 
 class Sudoku
 {

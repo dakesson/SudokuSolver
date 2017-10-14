@@ -1,32 +1,40 @@
 #include "SudokuSolver.h"
 #include <algorithm>
 
-SudokuSolver::SudokuSolver(Sudoku *sudoku, bool findAllSolutions)
+SudokuSolver::SudokuSolver(Sudoku *sudoku)
 {
 	this->sudoku = sudoku;
-	this->findAllSolutions = findAllSolutions;
-	deepthFirstSearch();
 }
 
-void SudokuSolver::deepthFirstSearch()
+void SudokuSolver::findAllSolutions()
 {
-	std::vector<Position> positions = sudoku->getUnFilledPositions();
+	deepthFirstSearch(true);
+}
+
+void SudokuSolver::findSolution()
+{
+	deepthFirstSearch(false);
+}
+
+void SudokuSolver::deepthFirstSearch(bool findAllSolutions)
+{
+	std::vector<Position> unfilledPositions = sudoku->getUnFilledPositions();
 
 	int level = 0;
-	this->numberOfBacktrack = 0;
-	
-	while (level < positions.size())
+	numberOfBacktracks = 0;
+		
+	while (level < unfilledPositions.size())
 	{
 		if (level == -1)
 			return;
 
-		Position pos = positions[positions.size() - 1 - level];
+		Position pos = unfilledPositions[unfilledPositions.size() - level - 1];
 		int nextValue = sudoku->getValueFor(pos) + 1;
 
 		if (nextValue == 10) {
 			sudoku->setValue(0, pos);
 			level--;
-			numberOfBacktrack++;
+			numberOfBacktracks++;
 			continue;
 		}
 
@@ -34,7 +42,7 @@ void SudokuSolver::deepthFirstSearch()
 			sudoku->setValue(testValue, pos);
 			if (sudoku->constraintsForCellOK(pos)) {
 
-				bool solutionFound = (level == positions.size() - 1);
+				bool solutionFound = (level == unfilledPositions.size() - 1);
 				if (solutionFound) {
 					solutions.push_back(*sudoku);
 					if (!findAllSolutions) {
@@ -49,32 +57,21 @@ void SudokuSolver::deepthFirstSearch()
 	} 
 }
 
-void SudokuSolver::startTimer()
-{
-	this->sTimer = clock();
-}
-
-void SudokuSolver::endTimer()
-{
-	this->eTimer = clock();
-	unsigned int total_time_ticks = (unsigned int)(sTimer - eTimer);
-}
-
 std::string SudokuSolver::difficultyOfSudoku()
 {
-	if (numberOfBacktrack == 0) {
+	if (numberOfBacktracks == 0) {
 		return "No sudoku solved";
 	}
-	else if (numberOfBacktrack < 1000) {
+	else if (numberOfBacktracks < 1000) {
 		return "Sudoku was easy!";
 	}
-	else if (numberOfBacktrack < 15000) {
+	else if (numberOfBacktracks < 15000) {
 		return "Sudoku  was medium";
 	}
-	else if (numberOfBacktrack < 35000) {
+	else if (numberOfBacktracks < 35000) {
 		return "Sudoku  was hard";
 	}
-	else if (numberOfBacktrack >= 35000) {
+	else {
 		return "Sudoku  was level SAMURAI!";
 	}
 }

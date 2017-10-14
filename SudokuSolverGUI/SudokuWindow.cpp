@@ -110,10 +110,11 @@ void SudokuWindow::open()
 
 void SudokuWindow::solve()
 {
-	if (!this->sudoku)
+	if (!sudoku)
 		return;
 
-	SudokuSolver *solver = new SudokuSolver(this->sudoku, true);
+	SudokuSolver *solver = new SudokuSolver(sudoku);
+	solver->findAllSolutions();
 
 	if (solver->solutions.size() == 1) {
 		QMessageBox::information(this, "Solved!", 
@@ -128,7 +129,6 @@ void SudokuWindow::solve()
 
 void SudokuWindow::generate()
 {
-	SudokuGenerator *generator = new SudokuGenerator;
 	Sudoku *sudoku = SudokuGenerator().generate();
 	draw(sudoku);
 }

@@ -16,41 +16,46 @@ SudokuGenerator::~SudokuGenerator()
 Sudoku* SudokuGenerator::generate()
 {
 	Sudoku *sudoku = new Sudoku();
-	fillAllCellsWithValues(sudoku);
+	fillSudoku(sudoku);
 	removeRandomValuesUntilOneSolution(sudoku);
 	
 	return sudoku;
 }
 
-void SudokuGenerator::fillAllCellsWithValues(Sudoku * sudoku)
+void SudokuGenerator::fillSudoku(Sudoku * sudoku)
 {
 	while (true) {
 		sudoku->clearValues();
 		addRandomInitialValuesTo(sudoku);
-		SudokuSolver solver = SudokuSolver(sudoku, false);
-		if (solver.solutions.size() > 0)
+		SudokuSolver solver = SudokuSolver(sudoku);
+		solver.findSolution();
+		if (solver.solutions.size() > 0) {
+			sudoku = &solver.solutions[0];
 			break;
+		}
+			
 	}
 }
 
 void SudokuGenerator::addRandomInitialValuesTo(Sudoku *sudoku)
 {
 	for (int i = 1; i <= 9; i++) {
-		int dataPos = rand() % 80;
-		sudoku->setValue(i, Position(dataPos));
+		int storagePos = rand() % 80;
+		sudoku->setValue(i, Position(storagePos));
 	}
 }
 
 void SudokuGenerator::removeRandomValuesUntilOneSolution(Sudoku * sudoku)
 {
-	std::vector<Position> filledPositions = sudoku->getFilledPositions();
+	std::vector<Position> removablePositions = sudoku->getFilledPositions();
 	while (true) {		
-		int randomFilledPosition = rand() % (filledPositions.size() - 1);
-		Position pos = filledPositions[randomFilledPosition];
+		int randomRemovablePosition = rand() % (removablePositions.size() - 1);
+		Position pos = removablePositions[randomRemovablePosition];
 
 		int oldValue = sudoku->getValueFor(pos);
 		sudoku->removeValue(Position(pos));
-		SudokuSolver solver = SudokuSolver(sudoku, true);
+		SudokuSolver solver = SudokuSolver(sudoku);
+		solver.findAllSolutions();
 
 		if (solver.solutions.size() == 0) {
 			sudoku->setValue(oldValue, pos);
@@ -61,6 +66,6 @@ void SudokuGenerator::removeRandomValuesUntilOneSolution(Sudoku * sudoku)
 			return;
 		}
 
-		filledPositions.erase(filledPositions.begin() + randomFilledPosition);
+		removablePositions.erase(removablePositions.begin() + randomRemovablePosition);
 	}
 }

@@ -3,12 +3,7 @@
 #include <string>
 #include "Sudoku.h"
 
-class Parser
+namespace Parser
 {
-private:
-	Sudoku *sudoku;
-public:
-	Parser();
 	Sudoku* parseFile(std::string filename);
-	~Parser();
 };

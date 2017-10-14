@@ -98,7 +98,7 @@ void SudokuWindow::open()
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 		return;
 
-	Sudoku *sudoku = Parser().parseFile(filename.toStdString());
+	Sudoku *sudoku = Parser::parseFile(filename.toStdString());
 	
 	if (!sudoku->allConstraintsOK()) {
 		QMessageBox::warning(this, "Sudoku",

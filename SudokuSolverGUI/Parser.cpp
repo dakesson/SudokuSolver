@@ -4,13 +4,10 @@
 #include <sstream>
 #include <ctype.h>
 
-Parser::Parser()
-{
-	sudoku = new Sudoku();
-}
-
 Sudoku* Parser::parseFile(std::string filename)
 {
+	Sudoku *sudoku = new Sudoku();
+
 	std::ifstream infile(filename);
 	if (!infile.is_open())
 		throw std::invalid_argument("Could not open file: " + filename);
@@ -32,8 +29,4 @@ Sudoku* Parser::parseFile(std::string filename)
 	}
 
 	return sudoku;
-}
-
-Parser::~Parser()
-{
 }

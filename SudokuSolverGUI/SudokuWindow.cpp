@@ -73,6 +73,7 @@ QLabel * SudokuWindow::getCellLabel(int row, int col)
 void SudokuWindow::draw(Sudoku *sudoku)
 {
 	this->sudoku = sudoku;
+	sudokuLoaded = true;
 
 	for (int row = 0; row < NUM_ROW; row++) {
 		for (int col = 0; col < NUM_COL; col++) {
@@ -110,8 +111,8 @@ void SudokuWindow::open()
 
 void SudokuWindow::solve()
 {
-	if (!sudoku)
-		return;
+	if (!sudokuLoaded)
+ 		return;
 
 	SudokuSolver *solver = new SudokuSolver(sudoku);
 	solver->findAllSolutions();

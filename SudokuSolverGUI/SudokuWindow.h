@@ -11,6 +11,7 @@ private:
 	QGridLayout *layout;
 	QVector<QLabel*> cellLabels;
 	const int cellSize = 40;
+	bool sudokuLoaded = false;
 
 	void createMenu();
 	void drawBoxBorders();

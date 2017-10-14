@@ -1,6 +1,6 @@
 #include "SudokuWindow.h"
 #include "Parser.h"
-#include "PuzzleGenerator.h"
+#include "SudokuGenerator.h"
 #include "SudokuSolver.h"
 
 SudokuWindow::SudokuWindow()
@@ -70,13 +70,13 @@ QLabel * SudokuWindow::getCellLabel(int row, int col)
 	return cellLabels[row * NUM_COL + col];
 }
 
-void SudokuWindow::drawPuzzle(Puzzle *puzzle)
+void SudokuWindow::draw(Sudoku *sudoku)
 {
-	this->puzzle = puzzle;
+	this->sudoku = sudoku;
 
 	for (int row = 0; row < NUM_ROW; row++) {
 		for (int col = 0; col < NUM_COL; col++) {
-			int value = puzzle->getValueFor(Position(row, col));
+			int value = sudoku->getValueFor(Position(row, col));
 
 			if (value) {
 				char asciiNumber = '0' + value;
@@ -98,28 +98,28 @@ void SudokuWindow::open()
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 		return;
 
-	Puzzle *puzzle = Parser().parseFile(filename.toStdString());
+	Sudoku *sudoku = Parser().parseFile(filename.toStdString());
 	
-	if (!puzzle->allConstraintsOK()) {
+	if (!sudoku->allConstraintsOK()) {
 		QMessageBox::warning(this, "Sudoku",
 			"This sudoku has contradicting constraints");
 	}
 
-	drawPuzzle(puzzle);
+	draw(sudoku);
 }
 
 void SudokuWindow::solve()
 {
-	if (!this->puzzle)
+	if (!this->sudoku)
 		return;
 
-	SudokuSolver *solver = new SudokuSolver(this->puzzle, true);
+	SudokuSolver *solver = new SudokuSolver(this->sudoku, true);
 
 	if (solver->solutions.size() == 1) {
 		QMessageBox::information(this, "Solved!", 
-			QString::fromStdString(solver->difficultyOfPuzzle()));
+			QString::fromStdString(solver->difficultyOfSudoku()));
 
-		drawPuzzle(&solver->solutions[0]);
+		draw(&solver->solutions[0]);
 	} else {
 		QMessageBox::information(this, "Sudoku",
 			"This sudoku does not have a unique solution");
@@ -128,9 +128,9 @@ void SudokuWindow::solve()
 
 void SudokuWindow::generate()
 {
-	PuzzleGenerator *generator = new PuzzleGenerator;
-	Puzzle *puzzle = PuzzleGenerator().generate();
-	drawPuzzle(puzzle);
+	SudokuGenerator *generator = new SudokuGenerator;
+	Sudoku *sudoku = SudokuGenerator().generate();
+	draw(sudoku);
 }
 
 SudokuWindow::~SudokuWindow()

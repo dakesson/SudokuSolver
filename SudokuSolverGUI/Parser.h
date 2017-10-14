@@ -1,14 +1,14 @@
 #pragma once
 
 #include <string>
-#include "Puzzle.h"
+#include "Sudoku.h"
 
 class Parser
 {
 private:
-	Puzzle *puzzle;
+	Sudoku *sudoku;
 public:
 	Parser();
-	Puzzle* parseFile(std::string filename);
+	Sudoku* parseFile(std::string filename);
 	~Parser();
 };

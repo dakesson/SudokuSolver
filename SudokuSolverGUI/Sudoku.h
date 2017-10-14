@@ -3,7 +3,7 @@
 
 #pragma once
 
-class Puzzle
+class Sudoku
 {
 private:
 	std::vector <int> storage;
@@ -12,7 +12,7 @@ private:
 	std::vector<int> getColValues(int col);
 	std::vector<int> getBoxValues(int number);
 public:
-	Puzzle();
+	Sudoku();
 	void setValue(int value, Position pos);
 	void removeValue(Position pos);
 	int getValueFor(Position pos);
@@ -20,7 +20,7 @@ public:
 	bool constraintsForCellOK(Position pos);
 	std::vector<Position> getUnFilledPositions();
 	std::vector<Position> getFilledPositions();
-	int Puzzle::computeConstraintsFor(Position pos);
-	void Puzzle::clearValues();
-	~Puzzle();
+	int Sudoku::computeConstraintsFor(Position pos);
+	void Sudoku::clearValues();
+	~Sudoku();
 };

@@ -1,28 +1,28 @@
-#include "Puzzle.h"
+#include "Sudoku.h"
 #include "Utility.h"
 
 
-Puzzle::Puzzle()
+Sudoku::Sudoku()
 {
 	storage = std::vector<int>(NUM_ROW * NUM_COL);
 }
 
-void Puzzle::setValue(int value, Position pos)
+void Sudoku::setValue(int value, Position pos)
 {
 	storage[pos.getStoragePos()] = value;
 }
 
-void Puzzle::removeValue(Position pos)
+void Sudoku::removeValue(Position pos)
 {
 	setValue(NULL, pos);
 }
 
-int Puzzle::getValueFor(Position pos)
+int Sudoku::getValueFor(Position pos)
 {
 	return storage[pos.getStoragePos()];
 }
 
-std::vector<int>Puzzle::getRowValues(int row) 
+std::vector<int>Sudoku::getRowValues(int row) 
 {
 	std::vector<int> rowValues;
 	for (int col = 0; col < NUM_COL; col++)
@@ -34,7 +34,7 @@ std::vector<int>Puzzle::getRowValues(int row)
 	return rowValues;
 }
 
-std::vector<int> Puzzle::getColValues(int col)
+std::vector<int> Sudoku::getColValues(int col)
 {
 	std::vector<int> colValues;
 	for (int row = 0; row < NUM_ROW; row++)
@@ -46,7 +46,7 @@ std::vector<int> Puzzle::getColValues(int col)
 	return colValues;
 }
 
-std::vector<int> Puzzle::getBoxValues(int number)
+std::vector<int> Sudoku::getBoxValues(int number)
 {
 	std::vector<int> BoxValues;
 	
@@ -64,7 +64,7 @@ std::vector<int> Puzzle::getBoxValues(int number)
 	return BoxValues;
 }
 
-bool Puzzle::allConstraintsOK()
+bool Sudoku::allConstraintsOK()
 {
 	for (int i = 0; i < 9; i++)
 	{
@@ -81,7 +81,7 @@ bool Puzzle::allConstraintsOK()
 	return true;
 }
 
-bool Puzzle::constraintsForCellOK(Position pos)
+bool Sudoku::constraintsForCellOK(Position pos)
 {
 	if (utility::containsDuplicates(getRowValues(pos.getRow())))
 		return false;
@@ -95,7 +95,7 @@ bool Puzzle::constraintsForCellOK(Position pos)
 	return true;
 }
 
-std::vector<Position> Puzzle::getUnFilledPositions()
+std::vector<Position> Sudoku::getUnFilledPositions()
 {
 	std::vector<Position> result;
 	for (int i = 0; i < this->storage.size(); i++) {
@@ -105,7 +105,7 @@ std::vector<Position> Puzzle::getUnFilledPositions()
 	return result;
 }
 
-std::vector<Position> Puzzle::getFilledPositions()
+std::vector<Position> Sudoku::getFilledPositions()
 {
 	std::vector<Position> result;
 	for (int i = 0; i < this->storage.size(); i++) {
@@ -115,7 +115,7 @@ std::vector<Position> Puzzle::getFilledPositions()
 	return result;
 }
 
-int Puzzle::computeConstraintsFor(Position pos)
+int Sudoku::computeConstraintsFor(Position pos)
 {
 	std::vector<int> constraints;
 
@@ -131,11 +131,11 @@ int Puzzle::computeConstraintsFor(Position pos)
 	return utility::countUniqueValues(constraints);
 }
 
-void Puzzle::clearValues()
+void Sudoku::clearValues()
 {
 	this->storage = std::vector<int>(NUM_ROW * NUM_COL);
 }
 
-Puzzle::~Puzzle()
+Sudoku::~Sudoku()
 {
 }

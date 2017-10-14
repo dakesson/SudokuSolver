@@ -6,10 +6,10 @@
 
 Parser::Parser()
 {
-	this->puzzle = new Puzzle();
+	sudoku = new Sudoku();
 }
 
-Puzzle* Parser::parseFile(std::string filename)
+Sudoku* Parser::parseFile(std::string filename)
 {
 	std::ifstream infile(filename);
 	if (!infile.is_open())
@@ -25,13 +25,13 @@ Puzzle* Parser::parseFile(std::string filename)
 			if (isdigit(s))
 			{
 				int number = s - '0';
-				puzzle->setValue(number, Position(row, col));
+				sudoku->setValue(number, Position(row, col));
 			}
 		}
 		row++;
 	}
 
-	return puzzle;
+	return sudoku;
 }
 
 Parser::~Parser()

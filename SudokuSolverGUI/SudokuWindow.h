@@ -1,12 +1,12 @@
 #pragma once
 
 #include <QtWidgets>
-#include "Puzzle.h"
+#include "Sudoku.h"
 
 class SudokuWindow : public QMainWindow
 {
 private:
-	Puzzle *puzzle;
+	Sudoku *sudoku;
 	QMenu *fileMenu;
 	QGridLayout *layout;
 	QVector<QLabel*> cellLabels;
@@ -18,7 +18,7 @@ private:
 	QLabel* getCellLabel(int row, int col);
 public:
 	SudokuWindow();
-	void drawPuzzle(Puzzle *puzzle);
+	void draw(Sudoku *sudoku);
 	void open();
 	void solve();
 	void generate();

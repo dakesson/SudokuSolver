@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 #include "Puzzle.h"
 
@@ -11,4 +12,3 @@ public:
 	Puzzle* parseFile(std::string filename);
 	~Parser();
 };
-

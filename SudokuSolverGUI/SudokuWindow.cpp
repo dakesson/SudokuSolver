@@ -1,7 +1,7 @@
 #include "SudokuWindow.h"
+#include "Parser.h"
 #include "PuzzleGenerator.h"
 #include "SudokuSolver.h"
-#include "Parser.h"
 
 SudokuWindow::SudokuWindow()
 {
@@ -39,6 +39,18 @@ void SudokuWindow::createMenu()
 	layout->setMenuBar(menuBar);
 }
 
+void SudokuWindow::drawBoxBorders()
+{
+	for (int row = 0; row < 3; ++row) {
+		for (int col = 0; col < 3; col++) {
+			QLabel * const cellSquare = new QLabel();
+			cellSquare->setFixedSize(cellSize * 3, cellSize * 3);
+			layout->addWidget(cellSquare, row * 3, col * 3);
+			cellSquare->setStyleSheet("border: 2px solid black");
+		}
+	}
+}
+
 void SudokuWindow::drawCellLabels()
 {
 	for (int row = 0; row < NUM_ROW; ++row) {
@@ -53,16 +65,9 @@ void SudokuWindow::drawCellLabels()
 	}
 }
 
-void SudokuWindow::drawBoxBorders()
+QLabel * SudokuWindow::getCellLabel(int row, int col)
 {
-	for (int row = 0; row < 3; ++row) {
-		for (int col = 0; col < 3; col++) {
-			QLabel * const cellSquare = new QLabel();
-			cellSquare->setFixedSize(cellSize * 3, cellSize * 3);
-			layout->addWidget(cellSquare, row * 3, col * 3);
-			cellSquare->setStyleSheet("border: 2px solid black");
-		}
-	}
+	return cellLabels[row * NUM_COL + col];
 }
 
 void SudokuWindow::drawPuzzle(Puzzle *puzzle)
@@ -76,10 +81,10 @@ void SudokuWindow::drawPuzzle(Puzzle *puzzle)
 			if (value) {
 				char asciiNumber = '0' + value;
 				QString cellString = QString(asciiNumber);
-				cellLabel(row, col)->setText(cellString);
+				getCellLabel(row, col)->setText(cellString);
 			}
 			else {
-				cellLabel(row, col)->setText(QString(""));
+				getCellLabel(row, col)->setText(QString(""));
 			}
 		}
 	}

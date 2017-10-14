@@ -9,7 +9,4 @@ int main(int argc, char *argv[])
 	sudokuWindow.show();
 
 	return app.exec();
-
 }
-
-

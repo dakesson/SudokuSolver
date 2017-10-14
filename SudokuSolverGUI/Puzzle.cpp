@@ -4,7 +4,7 @@
 
 Puzzle::Puzzle()
 {
-	this->storage = std::vector<int>(NUM_ROW * NUM_COL);
+	storage = std::vector<int>(NUM_ROW * NUM_COL);
 }
 
 void Puzzle::setValue(int value, Position pos)

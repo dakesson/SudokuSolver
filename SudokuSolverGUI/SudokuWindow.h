@@ -1,15 +1,7 @@
 #pragma once
 
-#include "Puzzle.h"
-#include <QVector>
-#include <QMainWindow>
-#include <QLabel>
-#include <QGridLayout>
-#include <QApplication>
-#include <QMenuBar>
 #include <QtWidgets>
-
-const int cellSize = 40;
+#include "Puzzle.h"
 
 class SudokuWindow : public QMainWindow
 {
@@ -18,14 +10,14 @@ private:
 	QMenu *fileMenu;
 	QGridLayout *layout;
 	QVector<QLabel*> cellLabels;
-	QLabel* cellLabel(int row, int col) const {
-		return cellLabels[row * NUM_COL + col];
-	}
+	const int cellSize = 40;
+
+	void createMenu();
 	void drawBoxBorders();
 	void drawCellLabels();
+	QLabel* getCellLabel(int row, int col);
 public:
 	SudokuWindow();
-	void createMenu();
 	void drawPuzzle(Puzzle *puzzle);
 	void open();
 	void solve();
